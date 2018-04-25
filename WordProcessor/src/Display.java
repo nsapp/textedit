@@ -6,70 +6,77 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 public class Display extends JPanel implements ActionListener {
-    public JTextPane textArea;
-    public JMenuBar menuBar;
-    public JMenu file,font;
-    public JMenuItem neww,open,save,saveas,exit;
-    public JRadioButtonMenuItem radioButtonMenuItem1, radioButtonMenuItem2, radioButtonMenuItem3;
-    public JCheckBoxMenuItem checkBoxMenuItem1, checkBoxMenuItem2;
-    public JLabel processorLabel;
+    private JTextPane textArea;
+    private JMenuBar menuBar;
+    private JMenu file,font;
+    private JMenuItem newWindow,open,save,saveAs,exit;
+    private JRadioButtonMenuItem radioButtonMenuItem1, radioButtonMenuItem2, radioButtonMenuItem3;
+    private JCheckBoxMenuItem checkBoxMenuItem1, checkBoxMenuItem2;
+    private JLabel processorLabel;
 
     public Display(){
         init();
     }
 
-    public void init(){
+    private void init(){
         //Construct Components
         //Build File menu
         menuBar = new JMenuBar();
+        
+        font = new JMenu("Font");
         file = new JMenu("File");
-        neww = new JMenuItem("New");
+        
+        newWindow = new JMenuItem("New");
         open = new JMenuItem("Open");
         save = new JMenuItem("Save");
-        saveas = new JMenuItem("Save As");
+        saveAs = new JMenuItem("Save As");
         exit = new JMenuItem("Exit");
-        
-        file.add(neww);
-        file.add(open);
-        file.addSeparator();
-        file.add(save);
-        file.add(saveas);
-        file.addSeparator();
-        file.add(exit);
-        menuBar.add(file);
 
-        //Build Font Menu
-        font = new JMenu("Font");
-        menuBar.add(font);
         ButtonGroup group = new ButtonGroup();
         radioButtonMenuItem1 = new JRadioButtonMenuItem("Monospaced");
-        radioButtonMenuItem1.addActionListener(this);
-        group.add(radioButtonMenuItem1);
-        font.add(radioButtonMenuItem1);
         radioButtonMenuItem2 = new JRadioButtonMenuItem("Serif");
-        radioButtonMenuItem2.addActionListener(this);
-        group.add(radioButtonMenuItem2);
-        font.add(radioButtonMenuItem2);
         radioButtonMenuItem3 = new JRadioButtonMenuItem("Sans Serif");
-        radioButtonMenuItem3.addActionListener(this);
-        group.add(radioButtonMenuItem3);
-        font.add(radioButtonMenuItem3);
-        font.addSeparator();
         checkBoxMenuItem1 = new JCheckBoxMenuItem("Italic");
-        checkBoxMenuItem1.addActionListener(this);
-        font.add(checkBoxMenuItem1);
         checkBoxMenuItem2 = new JCheckBoxMenuItem("Bold");
-        checkBoxMenuItem2.addActionListener(this);
+        
+        textArea = new JTextPane();
+
+        //Build Font Menu
+        
+        group.add(radioButtonMenuItem1);
+        radioButtonMenuItem2.addActionListener(e -> {});
+        radioButtonMenuItem1.addActionListener(e -> {});
+        checkBoxMenuItem1.addActionListener(e -> {});
+        radioButtonMenuItem3.addActionListener(e -> {});
+        checkBoxMenuItem2.addActionListener(e -> {});
+        group.add(radioButtonMenuItem2);
+        group.add(radioButtonMenuItem3);
+        
+        font.add(radioButtonMenuItem2);
+        font.add(radioButtonMenuItem3);
+        font.add(radioButtonMenuItem1);
+        font.addSeparator();
+        font.add(checkBoxMenuItem1);
         font.add(checkBoxMenuItem2);
 
         //add label
         processorLabel = new JLabel("Text Editor");
         //Adjust Size and Layout
-        setPreferredSize(new Dimension(817,473));
-        setLayout(null);
 
-
-        textArea.setBounds(10,10,650,450);
+        file.add(newWindow);
+        file.add(open);
+        file.addSeparator();
+        file.add(save);
+        file.add(saveAs);
+        file.addSeparator();
+        file.add(exit);
+        menuBar.add(file);
+        menuBar.add(font);
+    }
+    
+    public JMenuBar getMenuBar()
+    {
+    		return menuBar;
     }
 
     public void actionPerformed(ActionEvent e) {
