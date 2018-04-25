@@ -1,12 +1,8 @@
 import javax.swing.*;
-import javax.swing.event.MenuListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.KeyListener;
 
-public class Display extends JPanel implements ActionListener {
+public class Display extends JPanel {
     private JTextPane textArea;
     private JMenuBar menuBar;
     private JMenu file,font;
@@ -102,9 +98,5 @@ public class Display extends JPanel implements ActionListener {
     	sp.add(textArea);
     	
     	return sp;
-    }
-
-    public void actionPerformed(ActionEvent e) {
-
     }
 }
