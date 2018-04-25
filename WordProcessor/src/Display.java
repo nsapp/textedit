@@ -23,24 +23,20 @@ public class Display extends JPanel implements ActionListener {
         //Build File menu
         menuBar = new JMenuBar();
         file = new JMenu("File");
-        menuBar.add(file);
         neww = new JMenuItem("New");
-        neww.addActionListener(this);
-        file.add(neww);
         open = new JMenuItem("Open");
-        open.addActionListener(this);
+        save = new JMenuItem("Save");
+        saveas = new JMenuItem("Save As");
+        exit = new JMenuItem("Exit");
+        
+        file.add(neww);
         file.add(open);
         file.addSeparator();
-        save = new JMenuItem("Save");
-        save.addActionListener(this);
         file.add(save);
-        saveas = new JMenuItem("Save As");
-        saveas.addActionListener(this);
         file.add(saveas);
         file.addSeparator();
-        exit = new JMenuItem("Exit");
-        exit.addActionListener(this);
         file.add(exit);
+        menuBar.add(file);
 
         //Build Font Menu
         font = new JMenu("Font");
