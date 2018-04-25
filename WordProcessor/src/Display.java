@@ -3,6 +3,7 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyListener;
 
 public class Display extends JPanel implements ActionListener {
@@ -10,8 +11,8 @@ public class Display extends JPanel implements ActionListener {
     private JMenuBar menuBar;
     private JMenu file,font;
     private JMenuItem newWindow,open,save,saveAs,exit;
-    private JRadioButtonMenuItem radioButtonMenuItem1, radioButtonMenuItem2, radioButtonMenuItem3;
-    private JCheckBoxMenuItem checkBoxMenuItem1, checkBoxMenuItem2;
+    private JRadioButtonMenuItem monospacedButton, serifButton, sansSerifButton;
+    private JCheckBoxMenuItem italicBox, boldBox;
     private JLabel processorLabel;
 
     public Display(){
@@ -33,31 +34,47 @@ public class Display extends JPanel implements ActionListener {
         exit = new JMenuItem("Exit");
 
         ButtonGroup group = new ButtonGroup();
-        radioButtonMenuItem1 = new JRadioButtonMenuItem("Monospaced");
-        radioButtonMenuItem2 = new JRadioButtonMenuItem("Serif");
-        radioButtonMenuItem3 = new JRadioButtonMenuItem("Sans Serif");
-        checkBoxMenuItem1 = new JCheckBoxMenuItem("Italic");
-        checkBoxMenuItem2 = new JCheckBoxMenuItem("Bold");
+        monospacedButton = new JRadioButtonMenuItem("Monospaced");
+        serifButton = new JRadioButtonMenuItem("Serif");
+        sansSerifButton = new JRadioButtonMenuItem("Sans Serif");
+        italicBox = new JCheckBoxMenuItem("Italic");
+        boldBox = new JCheckBoxMenuItem("Bold");
         
         textArea = new JTextPane();
 
         //Build Font Menu
         
-        group.add(radioButtonMenuItem1);
-        radioButtonMenuItem2.addActionListener(e -> {});
-        radioButtonMenuItem1.addActionListener(e -> {});
-        checkBoxMenuItem1.addActionListener(e -> {});
-        radioButtonMenuItem3.addActionListener(e -> {});
-        checkBoxMenuItem2.addActionListener(e -> {});
-        group.add(radioButtonMenuItem2);
-        group.add(radioButtonMenuItem3);
+        serifButton.addActionListener(e -> {
+        	textArea.setFont(new Font("Serif", Font.PLAIN, 12));
+        });
+        monospacedButton.addActionListener(e -> {
+        	textArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        });
+        sansSerifButton.addActionListener(e -> {
+        	textArea.setFont(new Font("San Serif", Font.PLAIN, 12));
+        });
+        boldBox.addItemListener(e -> {
+        	if (e.getStateChange() == ItemEvent.SELECTED) {
+        	textArea.setFont(textArea.getFont().deriveFont(Font.BOLD));
+        	}
+        	if (e.getStateChange() == ItemEvent.DESELECTED)
+        	{
+            	textArea.setFont(textArea.getFont().deriveFont(Font.PLAIN));
+        	}
+        });
+        italicBox.addActionListener(e -> {
+        	textArea.setFont(new Font("San Serif", Font.PLAIN, 12));
+        });
+        group.add(serifButton);
+        group.add(sansSerifButton);
+        group.add(monospacedButton);
         
-        font.add(radioButtonMenuItem2);
-        font.add(radioButtonMenuItem3);
-        font.add(radioButtonMenuItem1);
+        font.add(serifButton);
+        font.add(sansSerifButton);
+        font.add(monospacedButton);
         font.addSeparator();
-        font.add(checkBoxMenuItem1);
-        font.add(checkBoxMenuItem2);
+        font.add(italicBox);
+        font.add(boldBox);
 
         //add label
         processorLabel = new JLabel("Text Editor");
@@ -77,6 +94,14 @@ public class Display extends JPanel implements ActionListener {
     public JMenuBar getMenuBar()
     {
     		return menuBar;
+    }
+    
+    public ScrollPane getTextArea()
+    {
+    	ScrollPane sp = new ScrollPane();
+    	sp.add(textArea);
+    	
+    	return sp;
     }
 
     public void actionPerformed(ActionEvent e) {
